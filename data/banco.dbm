@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.1" author="Rogerio Lamarques" last-position="0,288" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="datum" template="datum">
+</database>
+
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="acessos" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<sequence name="seq_usuarios"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="usuarios">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+	<position x="23" y="49"/>
+	<column name="id_usuarios" not-null="true" sequence="acessos.seq_usuarios">
+		<type name="int4"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="login" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="senha" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="ativo" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<constraint name="pri_usuarios" type="pk-constr" table="acessos.usuarios">
+		<tablespace name="pg_global"/>
+		<columns names="id_usuarios" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="seq_grupos"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="grupos">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+	<position x="369" y="39"/>
+	<column name="id_grupos" not-null="true" sequence="acessos.seq_grupos">
+		<type name="int4"/>
+	</column>
+	<column name="grupo" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="pri_grupos" type="pk-constr" table="acessos.grupos">
+		<columns names="id_grupos" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="usuarios_grupos">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+	<position x="49" y="224"/>
+	<column name="id_usuarios" not-null="true">
+		<type name="int4"/>
+	</column>
+	<column name="id_grupos" not-null="true">
+		<type name="int4"/>
+	</column>
+</table>
+
+<sequence name="seq_permissoes"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="permissoes">
+	<schema name="acessos"/>
+	<role name="postgres"/>
+	<position x="397" y="267"/>
+	<column name="id_permissoes" not-null="true" sequence="acessos.seq_permissoes">
+		<type name="int4"/>
+	</column>
+	<column name="controle" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="ver" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<column name="modificar" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<column name="administrar" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<constraint name="id_permissoes" type="pk-constr" table="acessos.permissoes">
+		<columns names="id_permissoes" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="grupos_permissoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="458" y="112"/>
+	<column name="id_grupos">
+		<type name="int4"/>
+	</column>
+	<column name="id_permissoes">
+		<type name="int4"/>
+	</column>
+	<column name="ver" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<column name="modificar" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<column name="administrar" default-value="TRUE">
+		<type name="bool"/>
+	</column>
+	<column name="root" default-value="FALSE">
+		<type name="bool"/>
+	</column>
+</table>
+
+<schema name="cadastros" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<sequence name="seq_pessoas"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_cadastro_geral"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="pessoas">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+	<position x="28" y="417"/>
+	<column name="id_pessoas" not-null="true" sequence="cadastros.seq_pessoas">
+		<type name="int4"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="sobrenome">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="documento">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="tipo" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="telefone" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="pri_pessoas" type="pk-constr" table="cadastros.pessoas">
+		<columns names="id_pessoas" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="seq_funcionarios"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="funcionarios">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+	<position x="372" y="401"/>
+	<column name="id_funcionarios" not-null="true" sequence="cadastros.seq_funcionarios">
+		<type name="int4"/>
+	</column>
+	<column name="id_pessoas">
+		<type name="int4"/>
+	</column>
+	<column name="matricula">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="pri_funcionarios" type="pk-constr" table="cadastros.funcionarios">
+		<columns names="id_funcionarios" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="seq_clientes"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="clientes">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+	<position x="374" y="487"/>
+	<column name="id_clientes" not-null="true" sequence="cadastros.seq_clientes">
+		<type name="int4"/>
+	</column>
+	<column name="id_pessoas" not-null="true">
+		<type name="int4"/>
+	</column>
+	<column name="projeto">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="pri_clientes" type="pk-constr" table="cadastros.clientes">
+		<columns names="id_clientes" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="clientes_funcionarios">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+	<position x="792" y="436"/>
+	<column name="id_clientes" not-null="true">
+		<type name="int4"/>
+	</column>
+	<column name="id_funcionarios" not-null="true">
+		<type name="int4"/>
+	</column>
+</table>
+
+<schema name="ponto" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<sequence name="seq_frequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="ponto"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="frequencia">
+	<schema name="ponto"/>
+	<role name="postgres"/>
+	<position x="39" y="693"/>
+	<column name="id_frequencia" not-null="true" sequence="ponto.seq_frequencia">
+		<type name="int4"/>
+	</column>
+	<column name="id_funcionarios" not-null="true">
+		<type name="int4"/>
+	</column>
+	<column name="entrada1">
+		<type name="timestamp"/>
+	</column>
+	<column name="saida1">
+		<type name="timestamp"/>
+	</column>
+	<column name="entrada2">
+		<type name="timestamp"/>
+	</column>
+	<column name="saida2">
+		<type name="timestamp"/>
+	</column>
+	<column name="entrada3">
+		<type name="timestamp"/>
+	</column>
+	<column name="saida3">
+		<type name="timestamp"/>
+	</column>
+	<column name="entrada4">
+		<type name="timestamp"/>
+	</column>
+	<column name="saida4">
+		<type name="timestamp"/>
+	</column>
+	<column name="id_atividades">
+		<type name="int4"/>
+	</column>
+	<column name="observacoes">
+		<type name="text"/>
+	</column>
+	<constraint name="pri_frequencia" type="pk-constr" table="ponto.frequencia">
+		<columns names="id_frequencia" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="seq_atividades_detalhadas"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="ponto"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="atividades_detalhadas">
+	<schema name="ponto"/>
+	<role name="postgres"/>
+	<position x="405" y="691"/>
+	<column name="id_atividades_detalhadas" not-null="true" sequence="ponto.seq_atividades_detalhadas">
+		<type name="int4"/>
+	</column>
+	<column name="id_frequencia" not-null="true">
+		<type name="int4"/>
+	</column>
+	<column name="inicio">
+		<type name="timestamp"/>
+	</column>
+	<column name="fim">
+		<type name="timestamp"/>
+	</column>
+	<column name="atividade">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="observacao">
+		<type name="text"/>
+	</column>
+	<constraint name="pri_atividades_detalhadas" type="pk-constr" table="ponto.atividades_detalhadas">
+		<columns names="id_atividades_detalhadas" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="seq_atividades"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="atividades">
+	<schema name="cadastros"/>
+	<role name="postgres"/>
+	<position x="814" y="544"/>
+	<column name="id_atividades" not-null="true" sequence="cadastros.seq_atividades">
+		<type name="int4"/>
+	</column>
+	<column name="id_cliente">
+		<type name="int4"/>
+	</column>
+	<column name="descricao">
+		<type name="varchar" length="180"/>
+	</column>
+	<constraint name="pri_atividades" type="pk-constr" table="cadastros.atividades">
+		<columns names="id_atividades" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="id_usuarios" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="acessos.usuarios" table="acessos.usuarios_grupos">
+	<columns names="id_usuarios" ref-type="src-columns"/>
+	<columns names="id_usuarios" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="id_grupos" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="acessos.grupos" table="acessos.usuarios_grupos">
+	<columns names="id_grupos" ref-type="src-columns"/>
+	<columns names="grupo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="id_grupos" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="acessos.grupos" table="public.grupos_permissoes">
+	<columns names="id_grupos" ref-type="src-columns"/>
+	<columns names="id_grupos" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="id_permissoes" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="acessos.permissoes" table="public.grupos_permissoes">
+	<columns names="id_permissoes" ref-type="src-columns"/>
+	<columns names="id_permissoes" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_pessoas_funcionarios" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.pessoas" table="cadastros.funcionarios">
+	<columns names="id_pessoas" ref-type="src-columns"/>
+	<columns names="id_pessoas" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_pessoas_clientes" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.pessoas" table="cadastros.clientes">
+	<columns names="id_pessoas" ref-type="src-columns"/>
+	<columns names="id_pessoas" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_clientes" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.clientes" table="cadastros.clientes_funcionarios">
+	<columns names="id_clientes" ref-type="src-columns"/>
+	<columns names="id_clientes" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_funcionarios" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.funcionarios" table="cadastros.clientes_funcionarios">
+	<columns names="id_funcionarios" ref-type="src-columns"/>
+	<columns names="id_funcionarios" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_funcionarios" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.funcionarios" table="ponto.frequencia">
+	<columns names="id_funcionarios" ref-type="src-columns"/>
+	<columns names="id_funcionarios" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_atividades" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.atividades" table="ponto.frequencia">
+	<columns names="id_atividades" ref-type="src-columns"/>
+	<columns names="id_atividades" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_frequencia" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="ponto.frequencia" table="ponto.atividades_detalhadas">
+	<columns names="id_atividades_detalhadas" ref-type="src-columns"/>
+	<columns names="id_frequencia" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_clientes" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="cadastros.clientes" table="cadastros.atividades">
+	<columns names="id_cliente" ref-type="src-columns"/>
+	<columns names="id_clientes" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_usuarios_grupos_usuarios" type="relfk"
+	 src-table="acessos.usuarios_grupos"
+	 dst-table="acessos.usuarios"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_usuarios_grupos_grupos" type="relfk"
+	 src-table="acessos.usuarios_grupos"
+	 dst-table="acessos.grupos"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_grupos_permissoes_grupos" type="relfk"
+	 src-table="public.grupos_permissoes"
+	 dst-table="acessos.grupos"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_grupos_permissoes_permissoes" type="relfk"
+	 src-table="public.grupos_permissoes"
+	 dst-table="acessos.permissoes"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_funcionarios_pessoas" type="relfk"
+	 src-table="cadastros.funcionarios"
+	 dst-table="cadastros.pessoas"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_clientes_pessoas" type="relfk"
+	 src-table="cadastros.clientes"
+	 dst-table="cadastros.pessoas"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_clientes_funcionarios_clientes" type="relfk"
+	 src-table="cadastros.clientes_funcionarios"
+	 dst-table="cadastros.clientes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_clientes_funcionarios_funcionarios" type="relfk"
+	 src-table="cadastros.clientes_funcionarios"
+	 dst-table="cadastros.funcionarios"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_frequencia_funcionarios" type="relfk"
+	 src-table="ponto.frequencia"
+	 dst-table="cadastros.funcionarios"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_atividades_detalhadas_frequencia" type="relfk"
+	 src-table="ponto.atividades_detalhadas"
+	 dst-table="ponto.frequencia"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_atividades_clientes" type="relfk"
+	 src-table="cadastros.atividades"
+	 dst-table="cadastros.clientes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_frequencia_atividades" type="relfk"
+	 src-table="ponto.frequencia"
+	 dst-table="cadastros.atividades"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

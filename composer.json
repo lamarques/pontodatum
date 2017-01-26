@@ -1,0 +1,21 @@
+{
+  "name": "lamarques/datumsis",
+  "description": "Sistema Interno Datum TI",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Rogerio Lamarques",
+      "email": "rogerio.lamarques@gmail.com"
+    }
+  ],
+  "require": {
+    "codeigniter/framework": "*",
+    "doctrine/orm": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Entities\\": "application/models/Entities/"
+    }
+  }
+}
